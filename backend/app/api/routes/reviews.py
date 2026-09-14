@@ -26,6 +26,9 @@ from app.services.views import issue_stats, review_detail, review_summary
 router = APIRouter(prefix="/api/reviews", tags=["reviews"])
 
 KEEPALIVE_SECONDS = 15.0
+# Sent when the log has nothing more to give and no live events will follow. Without it,
+# EventSource treats the closed connection as a drop and reconnects forever.
+STREAM_END = "event: stream.end\ndata: {}\n\n"
 # Pacing for ?replay=true, so a finished review can be watched building up again.
 REPLAY_DELAYS = {
     "status": 0.4,
@@ -149,6 +152,7 @@ async def stream_review(
                     return
 
             if queue is None or current_status not in REVIEW_ACTIVE_STATUSES:
+                yield STREAM_END
                 return
 
             while True:
