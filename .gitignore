@@ -9,6 +9,7 @@ __pycache__/
 htmlcov/
 
 # Secrets and local data
+backend/data/
 .env
 .env.local
 *.db
