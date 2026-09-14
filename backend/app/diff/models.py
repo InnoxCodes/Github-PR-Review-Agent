@@ -87,9 +87,20 @@ class PRAuthor(BaseModel):
     html_url: str | None = None
 
 
+class PRRepository(BaseModel):
+    full_name: str
+    html_url: str | None = None
+    description: str | None = None
+    language: str | None = None
+    stars: int = 0
+    private: bool = False
+    default_branch: str | None = None
+
+
 class PRMetadata(BaseModel):
     owner: str
     repo: str
+    repository: PRRepository | None = None
     number: int
     title: str
     body: str

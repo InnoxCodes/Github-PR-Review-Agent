@@ -9,6 +9,7 @@ from app.diff.models import (
     Hunk,
     PRAuthor,
     PRMetadata,
+    PRRepository,
     PullRequestDiff,
     SkipReason,
 )
@@ -30,9 +31,20 @@ async def load_pull_request(client: GitHubClient, ref: PRRef, settings: Settings
 def build_metadata(ref: PRRef, data: dict[str, Any]) -> PRMetadata:
     base_repo = data["base"].get("repo") or {}
     user = data.get("user") or {}
+    owner = (base_repo.get("owner") or {}).get("login", ref.owner)
+    repo = base_repo.get("name", ref.repo)
     return PRMetadata(
-        owner=(base_repo.get("owner") or {}).get("login", ref.owner),
-        repo=base_repo.get("name", ref.repo),
+        owner=owner,
+        repo=repo,
+        repository=PRRepository(
+            full_name=base_repo.get("full_name") or f"{owner}/{repo}",
+            html_url=base_repo.get("html_url"),
+            description=base_repo.get("description"),
+            language=base_repo.get("language"),
+            stars=base_repo.get("stargazers_count") or 0,
+            private=bool(base_repo.get("private")),
+            default_branch=base_repo.get("default_branch"),
+        ),
         number=data["number"],
         title=data["title"],
         body=data.get("body") or "",
