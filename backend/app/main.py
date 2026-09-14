@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
-from app.api.routes import analytics, health, repos, reviews, webhooks
+from app.api.routes import analytics, demo, health, repos, reviews, webhooks
 from app.config import Settings, get_settings
 from app.db import create_db_engine, create_session_factory, init_db
 from app.events import EventBroker
@@ -99,7 +99,7 @@ def create_app(
         allow_methods=["GET", "POST", "PATCH", "DELETE"],
         allow_headers=["*"],
     )
-    for module in (reviews, repos, analytics, webhooks, health):
+    for module in (reviews, repos, analytics, webhooks, health, demo):
         app.include_router(module.router)
     return app
 
