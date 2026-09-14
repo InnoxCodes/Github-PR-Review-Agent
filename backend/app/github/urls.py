@@ -17,8 +17,33 @@ _API_URL = re.compile(
 _SHORTHAND = re.compile(rf"^(?P<owner>{_OWNER})/(?P<repo>{_REPO})(?:#|/pull/)(?P<number>\d+)$")
 
 
+_REPO_URL = re.compile(
+    rf"^(?:https?://)?(?:www\.)?github\.com/(?P<owner>{_OWNER})/(?P<repo>{_REPO})(?:[/?#].*)?$",
+    re.IGNORECASE,
+)
+_REPO_SHORTHAND = re.compile(rf"^(?P<owner>{_OWNER})/(?P<repo>{_REPO})$")
+
+
 class InvalidPRReference(ValueError):
     pass
+
+
+class InvalidRepoReference(ValueError):
+    pass
+
+
+def parse_repo_reference(value: str) -> tuple[str, str]:
+    """Accept owner/name or any github.com URL inside a repository."""
+    text = value.strip()
+    for pattern in (_REPO_URL, _REPO_SHORTHAND):
+        match = pattern.match(text)
+        if match:
+            repo = match["repo"].removesuffix(".git")
+            if repo not in {"", ".", ".."}:
+                return match["owner"], repo
+    raise InvalidRepoReference(
+        f"Not a GitHub repository: {value!r}. Expected owner/name or https://github.com/owner/name."
+    )
 
 
 @dataclass(frozen=True)

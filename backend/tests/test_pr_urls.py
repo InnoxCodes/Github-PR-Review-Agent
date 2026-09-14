@@ -1,6 +1,27 @@
 import pytest
 
-from app.github.urls import InvalidPRReference, PRRef, parse_pr_reference
+from app.github.urls import InvalidPRReference, InvalidRepoReference, PRRef, parse_pr_reference, parse_repo_reference
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "encode/httpx",
+        "https://github.com/encode/httpx",
+        "github.com/encode/httpx/",
+        "https://github.com/encode/httpx.git",
+        "https://github.com/encode/httpx/pull/3690",
+        "https://github.com/encode/httpx/tree/master/httpx",
+    ],
+)
+def test_repository_reference_formats(value):
+    assert parse_repo_reference(value) == ("encode", "httpx")
+
+
+@pytest.mark.parametrize("value", ["", "httpx", "https://gitlab.com/encode/httpx", "a/b/c"])
+def test_invalid_repository_references(value):
+    with pytest.raises(InvalidRepoReference):
+        parse_repo_reference(value)
 
 
 @pytest.mark.parametrize(
