@@ -17,7 +17,6 @@ export function AnimatedNumber({ value, format = (v) => formatNumber(Math.round(
   useEffect(() => {
     if (reduceMotion) {
       current.current = value
-      setDisplay(value)
       return
     }
     const controls = animate(current.current, value, {
@@ -31,5 +30,5 @@ export function AnimatedNumber({ value, format = (v) => formatNumber(Math.round(
     return () => controls.stop()
   }, [value, duration, reduceMotion])
 
-  return <span className={className}>{format(display)}</span>
+  return <span className={className}>{format(reduceMotion ? value : display)}</span>
 }

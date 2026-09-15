@@ -27,8 +27,8 @@ export function ChartCard({ title, description, legend, children, table, classNa
             value={view}
             onChange={setView}
             options={[
-              { value: 'chart', label: <span className="sr-only sm:not-sr-only">Chart</span>, icon: <ChartColumn className="size-3.5" aria-hidden /> },
-              { value: 'table', label: <span className="sr-only sm:not-sr-only">Table</span>, icon: <Table2 className="size-3.5" aria-hidden /> },
+              { value: 'chart', label: <span className="sr-only">Chart view</span>, icon: <ChartColumn className="size-3.5" aria-hidden /> },
+              { value: 'table', label: <span className="sr-only">Table view</span>, icon: <Table2 className="size-3.5" aria-hidden /> },
             ]}
           />
         }

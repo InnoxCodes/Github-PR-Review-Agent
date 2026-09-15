@@ -146,7 +146,7 @@ export function ReviewHeader({ review, onReplay }: { review: ReviewDetail; onRep
           label="Tokens"
           icon={<Sparkles />}
           value={formatCompact(totalInput + review.tokens.output_tokens)}
-          hint={cacheShare > 0 ? `${Math.round(cacheShare * 100)}% of input served from prompt cache` : undefined}
+          hint={cacheShare > 0 ? `${Math.round(cacheShare * 100)}% of input cached` : undefined}
         />
         <Stat
           label="LLM cost"

@@ -39,23 +39,27 @@ export function ScoreTrendChart({ points }: { points: Analytics['score_trend'] }
           />
           <YAxis domain={[0, 100]} ticks={[0, 50, 80, 100]} tick={{ fill: theme.text, fontSize: 12 }} tickLine={false} axisLine={false} width={36} />
           <Tooltip cursor={{ stroke: theme.axis, strokeWidth: 1 }} content={<ScoreTooltip />} />
+          {/* Linear, not smoothed: each point is a discrete review, and a curve would invent scores between them. */}
           <Area
-            type="monotone"
+            type="linear"
             dataKey="score"
             stroke={theme.series[0]}
             strokeWidth={2}
+            strokeLinejoin="round"
             fill="url(#score-wash)"
-            activeDot={{ r: 5, stroke: theme.surface, strokeWidth: 2, fill: theme.series[0] }}
+            activeDot={{ r: 6, stroke: theme.surface, strokeWidth: 2, fill: theme.series[0] }}
             dot={(props: { cx?: number; cy?: number; index?: number; payload?: Point }) =>
-              props.index === lastIndex && props.cx !== undefined && props.cy !== undefined ? (
-                <g key="last">
-                  <circle cx={props.cx} cy={props.cy} r={5} fill={theme.series[0]} stroke={theme.surface} strokeWidth={2} />
-                  <text x={props.cx} y={props.cy - 12} textAnchor="middle" fill={theme.fg} fontSize={12} fontWeight={600}>
-                    {props.payload?.score}
-                  </text>
-                </g>
-              ) : (
+              props.cx === undefined || props.cy === undefined ? (
                 <g key={props.index} />
+              ) : (
+                <g key={props.index}>
+                  <circle cx={props.cx} cy={props.cy} r={4} fill={theme.series[0]} stroke={theme.surface} strokeWidth={2} />
+                  {props.index === lastIndex && (
+                    <text x={props.cx} y={props.cy - 12} textAnchor="middle" fill={theme.fg} fontSize={12} fontWeight={600}>
+                      {props.payload?.score}
+                    </text>
+                  )}
+                </g>
               )
             }
             animationDuration={900}

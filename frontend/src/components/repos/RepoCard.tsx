@@ -27,10 +27,8 @@ export function RepoCard({ repo, onRemove }: { repo: Repository; onRemove: () =>
             <FolderGit2 className="size-5" aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
-            <h2 className="truncate font-mono text-[15px] font-semibold">
-              <span className="text-fg-muted">{repo.owner}/</span>
-              <span className="text-fg">{repo.name}</span>
-            </h2>
+            <p className="truncate font-mono text-xs text-fg-muted">{repo.owner}</p>
+            <h2 className="truncate font-mono text-[15px] font-semibold text-fg">{repo.name}</h2>
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-fg-muted">
               {repo.language && <span>{repo.language}</span>}
               <span className="inline-flex items-center gap-1">
