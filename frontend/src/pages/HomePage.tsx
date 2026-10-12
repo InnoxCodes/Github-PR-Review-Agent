@@ -49,8 +49,10 @@ export default function HomePage() {
   function needsSetup() {
     setHighlightSetup(true)
     setupRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    toast.warning('No LLM API key configured', {
-      description: 'Add ANTHROPIC_API_KEY to backend/.env, or explore the sample reviews.',
+    toast.warning(health.data?.demo ? 'Live reviews are off in this hosted demo' : 'No LLM API key configured', {
+      description: health.data?.demo
+        ? 'Open a sample review below, or run ReviewMind locally with an API key.'
+        : 'Add ANTHROPIC_API_KEY to backend/.env, or explore the sample reviews.',
     })
   }
 

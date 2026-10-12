@@ -58,7 +58,7 @@ function query(params: Record<string, string | number | undefined | null>): stri
   return text ? `?${text}` : ''
 }
 
-export const api = {
+const realApi = {
   health: () => request<Health>('/health'),
 
   listReviews: (params: { repository?: string; status?: ReviewStatus; limit?: number } = {}) =>
@@ -86,6 +86,28 @@ export const api = {
   loadSampleData: () => request<{ reviews: number; repositories: number }>('/demo/sample-data', { method: 'POST' }),
   clearSampleData: () => request<void>('/demo/sample-data', { method: 'DELETE' }),
 }
+
+export const DEMO = import.meta.env.VITE_DEMO === '1'
+
+// In the hosted demo every call is answered in the browser from bundled sample reviews. The module is
+// loaded lazily, so a normal build never ships the snapshot.
+const lazyDemo = async () => (await import('@/demo/demo')).demoApi
+const demoApi: typeof realApi = {
+  health: async () => (await lazyDemo()).health(),
+  listReviews: async (params) => (await lazyDemo()).listReviews(params),
+  getReview: async (id) => (await lazyDemo()).getReview(id),
+  createReview: async () => (await lazyDemo()).createReview(),
+  deleteReview: async () => (await lazyDemo()).deleteReview(),
+  updateIssue: async (reviewId, issueId, status) => (await lazyDemo()).updateIssue(reviewId, issueId, status),
+  listRepos: async () => (await lazyDemo()).listRepos(),
+  trackRepo: async () => (await lazyDemo()).trackRepo(),
+  deleteRepo: async () => (await lazyDemo()).deleteRepo(),
+  analytics: async (days) => (await lazyDemo()).analytics(days),
+  loadSampleData: async () => (await lazyDemo()).loadSampleData(),
+  clearSampleData: async () => (await lazyDemo()).clearSampleData(),
+}
+
+export const api = DEMO ? demoApi : realApi
 
 export function reviewStreamUrl(reviewId: string, replay = false): string {
   return `${API_BASE}/reviews/${encodeURIComponent(reviewId)}/stream${replay ? '?replay=true' : ''}`

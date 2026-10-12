@@ -18,6 +18,37 @@ export const SetupNotice = forwardRef<HTMLDivElement, SetupNoticeProps>(function
     return null
   }
 
+  if (health.demo) {
+    return (
+      <motion.div ref={ref} animate={highlight ? { scale: [1, 1.015, 1] } : undefined} transition={{ duration: 0.5 }}>
+        <Card className={cn('overflow-hidden transition-shadow duration-500', highlight && 'shadow-glow')}>
+          <div className="flex items-start gap-4 p-6">
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-info/30 bg-info-soft text-info-text">
+              <Database className="size-5" aria-hidden />
+            </span>
+            <div className="min-w-0">
+              <h2 className="font-mono text-[15px] font-semibold text-fg">Interactive demo</h2>
+              <p className="mt-1 text-sm leading-relaxed text-fg-muted">
+                This hosted version runs entirely in your browser on hand-written sample reviews, clearly labelled as samples. Triage
+                findings, replay a review stream and explore the analytics. To review your own pull requests, run ReviewMind locally with an
+                API key:{' '}
+                <a
+                  href="https://github.com/InnoxCodes/Github-PR-Review-Agent"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-accent-text underline underline-offset-2"
+                >
+                  github.com/InnoxCodes/Github-PR-Review-Agent
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+    )
+  }
+
   return (
     <motion.div ref={ref} animate={highlight ? { scale: [1, 1.015, 1] } : undefined} transition={{ duration: 0.5 }}>
       <Card className={cn('overflow-hidden transition-shadow duration-500', highlight && 'shadow-glow')}>

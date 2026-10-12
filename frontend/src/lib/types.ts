@@ -159,6 +159,7 @@ export interface Health {
   llm: { configured: boolean; provider: string | null; model: string | null; message: string }
   github_token_configured: boolean
   sample_data_loaded: boolean
+  demo?: boolean
 }
 
 export interface CategoryBreakdown {

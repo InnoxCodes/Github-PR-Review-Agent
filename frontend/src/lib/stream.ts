@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef } from 'react'
-import { reviewStreamUrl } from './api'
+import { DEMO, reviewStreamUrl } from './api'
 import type { FileState, Issue, ReviewFile, ReviewStatus, ReviewSummary, StreamEvent } from './types'
 
 export interface StreamFile extends ReviewFile {
@@ -149,6 +149,32 @@ export function useReviewStream(reviewId: string | undefined, { enabled, replay 
   useEffect(() => {
     if (!enabled || !reviewId) return
     dispatch({ kind: 'reset' })
+
+    if (DEMO) {
+      // No server in the hosted demo: replay the stored events at a watchable pace.
+      let cancelled = false
+      const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+      const delays: Record<string, number> = { status: 400, pr: 700, 'file.started': 350, 'file.retry': 600, issues: 600, 'file.completed': 400 }
+      ;(async () => {
+        const { demoEvents } = await import('@/demo/demo')
+        dispatch({ kind: 'connection', connection: 'open' })
+        for (const stored of demoEvents(reviewId)) {
+          await pause(delays[stored.type] ?? 600)
+          if (cancelled) return
+          const event = { type: stored.type, data: stored.data } as StreamEvent
+          dispatch({ kind: 'event', id: stored.id, event })
+          if (event.type === 'review.completed' || event.type === 'review.failed') {
+            dispatch({ kind: 'connection', connection: 'closed' })
+            const outcome = event.type === 'review.completed' ? 'completed' : 'failed'
+            queueMicrotask(() => onTerminalRef.current?.(outcome, stateRef.current))
+          }
+        }
+      })()
+      return () => {
+        cancelled = true
+      }
+    }
+
     const source = new EventSource(reviewStreamUrl(reviewId, replay))
     let finished = false
 
