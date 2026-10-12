@@ -1,9 +1,13 @@
 # ReviewMind
 
+**Live demo: https://github-pr-review-agent-one.vercel.app**
+
 **AI pull request reviews that point at the exact line.** Paste a GitHub PR and ReviewMind reads the diff file by file, asks Claude for structured findings, bugs, security risks, performance problems, missing tests, complexity, style, validates every one against the real diff, and streams them into a review dashboard where you accept, dismiss or flag each suggestion.
 
 ![Review dashboard: syntax-highlighted diff with inline findings, triage panel and PR health score](docs/screenshots/review-dashboard.png)
 
+> The hosted demo runs entirely in the browser on the bundled sample reviews (no backend, no API key). To review your own pull requests, run it locally as described below.
+>
 > Runs locally. Without an API key it opens in **sample mode**: clearly labelled, hand-written sample reviews (never presented as model output) so the whole interface can be explored first.
 
 ## The problem
@@ -188,7 +192,7 @@ ReviewMind is a first-pass reviewer, not a replacement for one. It **cannot run 
 - **Incremental re-review.** On new pushes, review only the hunks that changed since the last reviewed commit.
 - **Scale out.** Move to a durable job queue with Redis pub/sub for multiple workers, and Postgres with migrations.
 - **Teams.** Authentication, and workspaces per user or team.
-- **Deployment.** Containerise and host it. The project is deliberately local-only for now.
+- **Hosted backend.** Only the sample-data demo is hosted (on Vercel). A full deployment needs a container host for the API and Postgres instead of SQLite.
 
 ## Project structure
 
