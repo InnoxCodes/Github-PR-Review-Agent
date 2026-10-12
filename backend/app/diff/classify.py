@@ -1,7 +1,7 @@
 """Decide which changed files are worth an LLM's attention, and what language they are.
 
 Path heuristics are deliberately conservative: skipping a real source file costs review
-coverage, while reviewing a lockfile only costs tokens — so anything ambiguous is reviewed.
+coverage, while reviewing a lockfile only costs tokens, so anything ambiguous is reviewed.
 """
 
 from pathlib import PurePosixPath

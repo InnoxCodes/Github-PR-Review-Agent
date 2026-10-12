@@ -141,7 +141,7 @@ export function IssuePanel({
             <EmptyState
               icon={BadgeCheck}
               title="No issues found"
-              description="ReviewMind didn't flag anything in the reviewed files. It can't run the code, so this is a good sign — not a guarantee."
+              description="ReviewMind didn't flag anything in the reviewed files. It can't run the code, so this is a good sign, not a guarantee."
             />
           ) : narrowed ? (
             <EmptyState

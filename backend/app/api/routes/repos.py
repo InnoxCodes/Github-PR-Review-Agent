@@ -28,7 +28,7 @@ async def track_repository(
     body: RepositoryCreate, response: Response, services: ServicesDep, session: SessionDep
 ) -> RepositoryOut:
     """Validates the repository against GitHub before storing it. A token is encrypted
-    (Fernet) before it reaches the database and is never returned — responses only say
+    (Fernet) before it reaches the database and is never returned, responses only say
     whether one is stored and show its last four characters."""
     try:
         owner, name = parse_repo_reference(body.repository)

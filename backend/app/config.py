@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     github_timeout_seconds: float = 20.0
 
     # Past ~1.5k changed lines a single file is almost always generated or vendored,
-    # and LLM review quality on it collapses — skip it and say so instead of chunking.
+    # and LLM review quality on it collapses, skip it and say so instead of chunking.
     max_changed_lines_per_file: int = 1500
     max_reviewable_files: int = 40
     chunk_max_lines: int = 400

@@ -1,8 +1,8 @@
-"""Turn a raw model response into trusted findings — or a precise reason to retry.
+"""Turn a raw model response into trusted findings, or a precise reason to retry.
 
 Failures are split into two tiers, because they deserve different reactions:
 
-* **Fatal** (``InvalidReviewOutput``): the response as a whole is unusable — not JSON,
+* **Fatal** (``InvalidReviewOutput``): the response as a whole is unusable, not JSON,
   wrong top-level shape, cut off by the token limit, or every finding malformed. The
   engine retries, feeding this error message back to the model so it can correct itself.
 * **Per-finding**: one finding is broken (bad enum value, a line that isn't in the diff).

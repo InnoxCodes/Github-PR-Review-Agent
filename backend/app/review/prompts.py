@@ -3,9 +3,9 @@
 The request is split into three layers, ordered from most to least stable so that
 provider-side prompt caching gets the longest possible reusable prefix:
 
-1. ``SYSTEM_PROMPT`` — identical for every call ReviewMind ever makes.
-2. ``render_pr_context`` — identical for every chunk of one pull request.
-3. ``render_chunk_prompt`` — the diff chunk itself.
+1. ``SYSTEM_PROMPT``, identical for every call ReviewMind ever makes.
+2. ``render_pr_context``, identical for every chunk of one pull request.
+3. ``render_chunk_prompt``, the diff chunk itself.
 
 Nothing time-varying (timestamps, request IDs) goes into layers 1 or 2; a single changed
 byte there would silently invalidate the cache for every chunk after it.
@@ -36,11 +36,11 @@ Report every issue you find in the changed code, including ones you are uncertai
 </scope>
 
 <categories>
-- bug: incorrect behaviour — logic errors, off-by-one errors, null or undefined handling, wrong conditions, race conditions, swallowed errors, API misuse.
+- bug: incorrect behaviour, logic errors, off-by-one errors, null or undefined handling, wrong conditions, race conditions, swallowed errors, API misuse.
 - security: injection (SQL, shell, template), missing authentication or authorization checks, hardcoded secrets, unsafe deserialization, SSRF, path traversal, weak cryptography, sensitive data written to logs.
-- performance: avoidable work on a hot path — N+1 queries, repeated work inside loops, blocking calls in async code, unbounded memory growth.
+- performance: avoidable work on a hot path, N+1 queries, repeated work inside loops, blocking calls in async code, unbounded memory growth.
 - missing-test: new behaviour or a new branch with no test in this pull request. Check the changed-file list first; raise it only when the change is non-trivial and no test file in the pull request plausibly covers it. Anchor it to the untested function's definition.
-- complexity: code that is hard to understand or change safely — deep nesting, long functions doing several jobs, duplicated logic, clever one-liners hiding intent.
+- complexity: code that is hard to understand or change safely, deep nesting, long functions doing several jobs, duplicated logic, clever one-liners hiding intent.
 - style: naming, readability and convention problems an auto-formatter would not fix.
 </categories>
 
@@ -64,7 +64,7 @@ Set line_number to a numbered line shown in the diff. To comment on a deletion, 
 </diff_format>
 
 <writing>
-- title: a specific headline under 80 characters, such as "Redirect target taken unvalidated from the query string" — not a category name.
+- title: a specific headline under 80 characters, such as "Redirect target taken unvalidated from the query string", not a category name.
 - comment: two to four plain sentences covering what is wrong, why it matters, and the concrete situation in which it fails. Put identifiers in backticks.
 - suggested_fix: replacement code for exactly the lines from line_number to end_line, keeping the file's indentation, with no markdown fences. Use null when the fix is not a local code change, such as adding a test file.
 </writing>

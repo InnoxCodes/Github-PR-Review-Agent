@@ -2,7 +2,7 @@
 
 The engine only ever asks for one thing: "given these instructions and this diff, return
 JSON matching this schema". Keeping the interface that narrow is what makes Claude and
-OpenAI swappable — each provider maps it onto its own structured-output feature.
+OpenAI swappable, each provider maps it onto its own structured-output feature.
 """
 
 from dataclasses import dataclass, field

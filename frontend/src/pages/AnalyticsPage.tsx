@@ -118,7 +118,7 @@ export default function AnalyticsPage() {
               <ChartCard
                 className="h-full"
                 title="PR health over time"
-                description={`Average ${data.average_health_score ?? '—'} across ${plural(data.score_trend.length, 'review')}`}
+                description={`Average ${data.average_health_score ?? '-'} across ${plural(data.score_trend.length, 'review')}`}
                 table={
                   <DataTable
                     head={['Review', 'Date', 'Score']}

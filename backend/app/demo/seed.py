@@ -2,7 +2,7 @@
 
 Diffs are generated with difflib from before/after file contents and then run through the
 real parser, classifier and chunker, and findings are anchored by locating their text in the
-new file — so a sample finding that doesn't land on a real diff line fails loudly here.
+new file, so a sample finding that doesn't land on a real diff line fails loudly here.
 Token counts and costs are estimates of what the review would plausibly have used.
 """
 

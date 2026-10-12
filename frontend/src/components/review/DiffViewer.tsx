@@ -139,7 +139,7 @@ function FileDiff({ reviewId, file, issues, selected, onSelectIssue }: FileDiffP
       {skipped ? (
         <div className="flex items-center gap-2 px-4 py-3 text-[13px] text-fg-muted">
           <CircleSlash className="size-4 text-fg-subtle" aria-hidden />
-          Not reviewed — {SKIP_REASON_LABEL[file.skip_reason ?? ''] ?? file.skip_reason}
+          Not reviewed, {SKIP_REASON_LABEL[file.skip_reason ?? ''] ?? file.skip_reason}
         </div>
       ) : (
         expanded && (

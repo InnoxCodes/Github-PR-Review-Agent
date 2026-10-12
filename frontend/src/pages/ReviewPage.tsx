@@ -65,7 +65,7 @@ function ReviewPageContent({ reviewId }: { reviewId: string }) {
     if (replaying) return
     if (outcome === 'completed') {
       toast.success('Review complete', {
-        description: `${plural(state.review?.issues_total ?? state.issues.length, 'finding')} · health score ${state.review?.health_score ?? '—'}`,
+        description: `${plural(state.review?.issues_total ?? state.issues.length, 'finding')} · health score ${state.review?.health_score ?? '-'}`,
       })
     } else {
       toast.error('Review failed', { description: state.error ?? undefined })

@@ -98,7 +98,7 @@ export default function HomePage() {
             className="mt-5 max-w-xl text-[17px] leading-relaxed text-fg-muted"
           >
             Paste a GitHub PR. ReviewMind reads the diff, flags bugs, security risks and missing tests, and pins every finding to the
-            exact line — streaming results as it works.
+            exact line, streaming results as it works.
           </motion.p>
 
           <motion.div
@@ -166,7 +166,7 @@ export default function HomePage() {
               <EmptyState
                 icon={Inbox}
                 title="No PRs reviewed yet"
-                description="Paste a pull request URL above to get started — or load the sample reviews to explore the dashboard."
+                description="Paste a pull request URL above to get started, or load the sample reviews to explore the dashboard."
                 action={
                   <Button onClick={() => load.mutate()} disabled={load.isPending}>
                     <Database className="size-4" aria-hidden /> Load sample data

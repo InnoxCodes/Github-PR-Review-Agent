@@ -6,7 +6,7 @@ Retry policy, in one place:
   If they still fail, the file is marked failed and the rest of the review continues.
 * Invalid *output* (bad JSON, truncated, nothing usable) is retried here, up to
   ``max_attempts``, with the validation error fed back to the model as a correction turn.
-* Credential/configuration errors abort the whole review — every file would fail the same way.
+* Credential/configuration errors abort the whole review, every file would fail the same way.
 """
 
 import asyncio

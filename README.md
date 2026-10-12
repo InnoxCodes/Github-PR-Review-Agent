@@ -1,6 +1,6 @@
 # ReviewMind
 
-**AI pull request reviews that point at the exact line.** Paste a GitHub PR and ReviewMind reads the diff file by file, asks Claude for structured findings — bugs, security risks, performance problems, missing tests, complexity, style — validates every one against the real diff, and streams them into a review dashboard where you accept, dismiss or flag each suggestion.
+**AI pull request reviews that point at the exact line.** Paste a GitHub PR and ReviewMind reads the diff file by file, asks Claude for structured findings, bugs, security risks, performance problems, missing tests, complexity, style, validates every one against the real diff, and streams them into a review dashboard where you accept, dismiss or flag each suggestion.
 
 ![Review dashboard: syntax-highlighted diff with inline findings, triage panel and PR health score](docs/screenshots/review-dashboard.png)
 
@@ -10,7 +10,7 @@
 
 Human review is the slowest step between writing code and shipping it, and much of a first pass is mechanical: an unparameterised query, a missing null check, a new branch with no test. An automated first pass lets reviewers spend their attention on design.
 
-Most "AI code review" demos paste model text into a box. That is hard to act on: comments aren't tied to lines, there's no way to tell the tool it was wrong, and nobody knows what it cost. ReviewMind treats model output as data — **typed, validated, anchored to a line, triaged by a human, and measured**.
+Most "AI code review" demos paste model text into a box. That is hard to act on: comments aren't tied to lines, there's no way to tell the tool it was wrong, and nobody knows what it cost. ReviewMind treats model output as data, **typed, validated, anchored to a line, triaged by a human, and measured**.
 
 ## Features
 
@@ -30,7 +30,7 @@ Most "AI code review" demos paste model text into a box. That is hard to act on:
 | Live streaming review | Analytics |
 |---|---|
 | ![Live review: per-file checklist, retry notice and findings feed](docs/screenshots/live-review.png) | ![Analytics: health trend, findings by category and week, reviewer precision](docs/screenshots/analytics.png) |
-| **Keyboard triage** — `j` to select, `a` to accept, with undo | **Repositories** |
+| **Keyboard triage**, `j` to select, `a` to accept, with undo | **Repositories** |
 | ![A finding accepted with a checkmark and an undo toast](docs/screenshots/triage-accept.png) | ![Repository cards with health and findings sparklines](docs/screenshots/repositories.png) |
 | **Light theme** | **Command menu** |
 | ![Review dashboard in the light theme](docs/screenshots/review-light.png) | ![Command menu](docs/screenshots/command-palette.png) |
@@ -54,8 +54,8 @@ flowchart LR
 
 **PR URL → GitHub fetch → diff parsing and filtering → chunking at hunk boundaries → LLM with structured output → validation and line anchoring → storage → stream to the UI.**
 
-- [ARCHITECTURE.md](ARCHITECTURE.md) — the request flow, data model, design decisions and failure handling.
-- [AI_ENGINE.md](AI_ENGINE.md) — prompt design, why structured output is enforced, the retry strategy, scoring, cost tracking and limitations.
+- [ARCHITECTURE.md](ARCHITECTURE.md), the request flow, data model, design decisions and failure handling.
+- [AI_ENGINE.md](AI_ENGINE.md), prompt design, why structured output is enforced, the retry strategy, scoring, cost tracking and limitations.
 
 ## Tech stack, and why
 
@@ -108,14 +108,14 @@ All settings live in `backend/.env`; see [`.env.example`](backend/.env.example).
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | — | Enables live reviews with Claude |
-| `OPENAI_API_KEY` | — | Alternative provider (requires `LLM_MODEL`) |
+| `ANTHROPIC_API_KEY` |, | Enables live reviews with Claude |
+| `OPENAI_API_KEY` |, | Alternative provider (requires `LLM_MODEL`) |
 | `LLM_MODEL` | `claude-opus-5` | Model used for reviews |
 | `LLM_EFFORT` | `high` | Claude effort level; `medium` is cheaper and faster |
 | `LLM_CONCURRENCY` | `4` | Parallel LLM calls per review |
-| `GITHUB_TOKEN` | — | Default GitHub token |
+| `GITHUB_TOKEN` |, | Default GitHub token |
 | `SECRET_KEY` | generated | Fernet key that encrypts stored tokens |
-| `GITHUB_WEBHOOK_SECRET` | — | Enables `POST /api/github/webhook` |
+| `GITHUB_WEBHOOK_SECRET` |, | Enables `POST /api/github/webhook` |
 
 ## Security practices
 
@@ -140,7 +140,7 @@ Live tests are opt-in because they hit real services:
 RUN_LIVE_TESTS=1 .venv/bin/pytest tests/test_live_github.py tests/test_live_review.py
 ```
 
-`test_live_github.py` checks parsed diffs against GitHub's own line counts on real merged PRs. `test_live_review.py` runs the **whole pipeline end to end** on a small real PR — GitHub, your LLM key, database, API and stream — and costs a few cents.
+`test_live_github.py` checks parsed diffs against GitHub's own line counts on real merged PRs. `test_live_review.py` runs the **whole pipeline end to end** on a small real PR, GitHub, your LLM key, database, API and stream, and costs a few cents.
 
 Frontend checks:
 

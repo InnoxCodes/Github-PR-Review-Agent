@@ -30,7 +30,7 @@ export const SetupNotice = forwardRef<HTMLDivElement, SetupNoticeProps>(function
               <h2 className="font-mono text-[15px] font-semibold text-fg">Connect an LLM to run live reviews</h2>
               <p className="mt-1 text-sm leading-relaxed text-fg-muted">
                 Add your key to <code className="rounded bg-muted px-1 font-mono text-[13px] text-fg-2">backend/.env</code> and restart
-                the API. Until then, explore the dashboard with clearly labelled sample reviews — hand-written, not model output.
+                the API. Until then, explore the dashboard with clearly labelled sample reviews, hand-written, not model output.
               </p>
               <pre className="mt-3 overflow-x-auto rounded-lg border border-line bg-sunken px-3 py-2 font-mono text-[13px] text-fg-2 scrollbar-thin">
                 ANTHROPIC_API_KEY=sk-ant-…

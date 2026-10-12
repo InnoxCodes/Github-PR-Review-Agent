@@ -120,8 +120,8 @@ async def stream_review(
     (possibly several), `file.retry` (when output failed validation), `file.completed`, and
     finally `review.completed` or `review.failed`.
 
-    Every event is stored before it is sent, so a client that connects late — or reconnects
-    with `Last-Event-ID`, which browsers' EventSource does automatically — first receives
+    Every event is stored before it is sent, so a client that connects late, or reconnects
+    with `Last-Event-ID`, which browsers' EventSource does automatically, first receives
     everything it missed, then live events."""
     async with services.session_factory() as session:
         await _review_or_404(session, review_id)

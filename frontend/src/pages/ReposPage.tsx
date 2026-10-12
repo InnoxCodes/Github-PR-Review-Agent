@@ -36,7 +36,7 @@ export default function ReposPage() {
       <PageHeader
         eyebrow="Workspace"
         title="Repositories"
-        description="Health trends per repository. Repositories appear automatically after their first review — track one to store a token for private pull requests."
+        description="Health trends per repository. Repositories appear automatically after their first review, track one to store a token for private pull requests."
         actions={
           <Button variant="primary" onClick={() => setTrackOpen(true)}>
             <Plus className="size-4" aria-hidden /> Track repository

@@ -117,7 +117,7 @@ export function LiveReview({ reviewId, summary, replay, onFinished }: LiveReview
               )}
               <span className="inline-flex items-center gap-1.5">
                 <Cpu className="size-3.5" aria-hidden />
-                <span className="font-mono text-xs">{stream.model ?? summary.model ?? '—'}</span>
+                <span className="font-mono text-xs">{stream.model ?? summary.model ?? '-'}</span>
               </span>
               {!replay && (
                 <span className="tabular inline-flex items-center gap-1.5">
@@ -134,7 +134,7 @@ export function LiveReview({ reviewId, summary, replay, onFinished }: LiveReview
               </span>
             </div>
             <StageStepper activeIndex={stageIndex} failed={stream.terminal === 'failed'} />
-            <p className="mt-3 min-h-5 text-[13px] text-fg-muted">{stream.terminal === 'completed' ? 'Review complete — opening the dashboard…' : stream.message}</p>
+            <p className="mt-3 min-h-5 text-[13px] text-fg-muted">{stream.terminal === 'completed' ? 'Review complete, opening the dashboard…' : stream.message}</p>
           </div>
 
           <div className="flex items-center gap-5 lg:border-l lg:border-line lg:pl-7">
@@ -225,7 +225,7 @@ export function LiveReview({ reviewId, summary, replay, onFinished }: LiveReview
                 >
                   <RefreshCw className="mt-0.5 size-3.5 shrink-0" aria-hidden />
                   <span>
-                    Output for <span className="font-mono">{basename(retry.filename)}</span> failed validation — retried with the error
+                    Output for <span className="font-mono">{basename(retry.filename)}</span> failed validation, retried with the error
                     fed back to the model.
                   </span>
                 </motion.div>

@@ -1,4 +1,4 @@
-// Mirrors backend/app/schemas.py — the API contract the dashboard is written against.
+// Mirrors backend/app/schemas.py, the API contract the dashboard is written against.
 
 export type Severity = 'critical' | 'warning' | 'info'
 export type Category = 'bug' | 'security' | 'performance' | 'missing-test' | 'complexity' | 'style'

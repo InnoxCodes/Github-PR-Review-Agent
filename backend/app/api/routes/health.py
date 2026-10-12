@@ -13,7 +13,7 @@ router = APIRouter(prefix="/api", tags=["system"])
 
 @router.get("/health", response_model=HealthOut, summary="Service status and configuration")
 async def health(services: ServicesDep, session: SessionDep) -> HealthOut:
-    """Whether an LLM provider and GitHub token are configured — the dashboard uses this to
+    """Whether an LLM provider and GitHub token are configured, the dashboard uses this to
     explain what's missing instead of failing on the first review."""
     samples = await session.scalar(select(func.count()).select_from(Review).where(Review.is_sample.is_(True)))
     return HealthOut(

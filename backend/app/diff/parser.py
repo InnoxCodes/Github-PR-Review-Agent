@@ -2,7 +2,7 @@ import re
 
 from app.diff.models import DiffLine, Hunk, LineType
 
-# "@@ -12,7 +12,8 @@ def handler():"  — counts default to 1 when omitted ("@@ -3 +3 @@").
+# "@@ -12,7 +12,8 @@ def handler():" , counts default to 1 when omitted ("@@ -3 +3 @@").
 HUNK_HEADER = re.compile(r"^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@(?: (.*))?$")
 
 

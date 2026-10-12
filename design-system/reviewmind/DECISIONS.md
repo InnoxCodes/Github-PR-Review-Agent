@@ -1,11 +1,11 @@
-# ReviewMind — design decisions on top of MASTER.md
+# ReviewMind, design decisions on top of MASTER.md
 
 `MASTER.md` was generated with the ui-ux-pro-max skill
 (`"developer tool AI code review dashboard dark" --design-system --variance 6 --motion 6 --density 7`).
 It is the source of truth; this file records where ReviewMind deliberately departs from it, and why.
 
 ## Adopted as generated
-- **Style:** Dark Mode (OLED) — dark is the default; high contrast, visible focus, minimal glow.
+- **Style:** Dark Mode (OLED), dark is the default; high contrast, visible focus, minimal glow.
 - **Palette core:** accent `#22C55E` with `#0F172A` on-accent text (7.8:1), muted foreground `#94A3B8`,
   destructive red, card `#1B2336` (used as the *raised* surface), muted `#272F42`.
 - **Typography:** JetBrains Mono (headings, code, diff) + IBM Plex Sans (UI text).
@@ -24,8 +24,8 @@ It is the source of truth; this file records where ReviewMind deliberately depar
 ## Charts (dataviz skill)
 - Categorical series use the reference palette slots 1–6 (blue, orange, aqua, yellow, magenta, green) in
   fixed order, mapped to issue categories. Validated with `validate_palette.js`:
-  dark on `#121A2B` — all checks pass (worst adjacent CVD ΔE 8.4, normal-vision 19.3);
-  light on `#FFFFFF` — passes, with aqua/yellow/magenta below 3:1 contrast, so every categorical chart
+  dark on `#121A2B`, all checks pass (worst adjacent CVD ΔE 8.4, normal-vision 19.3);
+  light on `#FFFFFF`, passes, with aqua/yellow/magenta below 3:1 contrast, so every categorical chart
   ships a legend and a table view (the required relief channel).
 - Severity and health grade use the reserved status steps (good `#0CA30C`, warning `#FAB219`,
   critical `#D03B3B`) and always appear with an icon and a text label, never colour alone.

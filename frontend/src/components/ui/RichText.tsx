@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { cn } from '@/lib/cn'
 
-/** Renders `backtick` spans from model-written text as inline code — as text nodes, never HTML. */
+/** Renders `backtick` spans from model-written text as inline code, as text nodes, never HTML. */
 export function RichText({ text, className }: { text: string; className?: string }) {
   const parts = text.split(/(`[^`\n]+`)/g)
   return (

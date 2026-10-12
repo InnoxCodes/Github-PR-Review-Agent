@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 10_000,
       refetchOnWindowFocus: false,
-      // 4xx responses are answers, not glitches — retrying them only delays the error state.
+      // 4xx responses are answers, not glitches, retrying them only delays the error state.
       retry: (failureCount, error) => !(error instanceof ApiError && error.status >= 400 && error.status < 500) && failureCount < 2,
     },
   },

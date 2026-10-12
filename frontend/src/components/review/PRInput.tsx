@@ -97,7 +97,7 @@ export function PRInput({ initialValue = '', llmReady, onNeedsSetup }: PRInputPr
         className={cn('mt-2.5 min-h-5 text-[13px]', showError ? 'text-critical-text' : 'text-fg-muted')}
       >
         {showError
-          ? "That doesn't look like a pull request — try https://github.com/owner/repo/pull/123 or owner/repo#123."
+          ? "That doesn't look like a pull request, try https://github.com/owner/repo/pull/123 or owner/repo#123."
           : 'Any public pull request works. Private repositories need a tracked repo with a token.'}
       </p>
       <div className="mt-3 flex flex-wrap items-center justify-center gap-2">

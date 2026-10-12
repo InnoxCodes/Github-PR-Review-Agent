@@ -151,7 +151,7 @@ class ReviewRunner:
             return None
         token = self.cipher.decrypt(repository.encrypted_token)
         if token is None:
-            logger.warning("Stored token for %s could not be decrypted — was the secret key changed?", repository.full_name)
+            logger.warning("Stored token for %s could not be decrypted, was the secret key changed?", repository.full_name)
         return token
 
     async def _store_pull_request(self, review_id: str, pr: PullRequestDiff) -> dict[str, int]:
@@ -457,7 +457,7 @@ async def upsert_repository_from_pr(session: AsyncSession, pr: PullRequestDiff) 
 
 
 async def mark_interrupted_reviews(session_factory: async_sessionmaker[AsyncSession]) -> int:
-    """A review can't survive a restart (its task lived in the old process) — close it out honestly."""
+    """A review can't survive a restart (its task lived in the old process), close it out honestly."""
     async with session_factory() as session:
         reviews = (await session.scalars(select(Review).where(Review.status.in_(REVIEW_ACTIVE_STATUSES)))).all()
         for review in reviews:

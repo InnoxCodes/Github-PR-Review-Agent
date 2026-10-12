@@ -12,14 +12,14 @@ export function formatCompact(value: number): string {
 }
 
 export function formatCost(usd: number | null | undefined): string {
-  if (usd === null || usd === undefined) return '—'
+  if (usd === null || usd === undefined) return '-'
   if (usd === 0) return '$0.00'
   if (usd < 0.01) return '<$0.01'
   return `$${usd.toFixed(usd < 100 ? 2 : 0)}`
 }
 
 export function formatDuration(ms: number | null | undefined): string {
-  if (ms === null || ms === undefined) return '—'
+  if (ms === null || ms === undefined) return '-'
   const seconds = ms / 1000
   if (seconds < 60) return `${seconds.toFixed(seconds < 10 ? 1 : 0)}s`
   const minutes = Math.floor(seconds / 60)
@@ -33,13 +33,13 @@ export function formatMinutes(minutes: number): string {
 }
 
 export function formatPercent(ratio: number | null | undefined): string {
-  if (ratio === null || ratio === undefined) return '—'
+  if (ratio === null || ratio === undefined) return '-'
   const percent = ratio * 100
   return `${percent.toFixed(percent > 0 && percent < 10 ? 1 : 0)}%`
 }
 
 export function relativeTime(iso: string | null | undefined, now = Date.now()): string {
-  if (!iso) return '—'
+  if (!iso) return '-'
   const seconds = Math.round((new Date(iso).getTime() - now) / 1000)
   const units: [Intl.RelativeTimeFormatUnit, number][] = [
     ['year', 31_536_000],

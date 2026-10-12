@@ -160,7 +160,7 @@ class Issue(Base):
     title: Mapped[str] = mapped_column(Text)
     comment: Mapped[str] = mapped_column(Text)
     suggested_fix: Mapped[str | None] = mapped_column(Text)
-    # open | accepted | dismissed | false_positive — the feedback signal for improving the reviewer.
+    # open | accepted | dismissed | false_positive, the feedback signal for improving the reviewer.
     status: Mapped[str] = mapped_column(String(20), default="open", index=True)
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
     resolved_at: Mapped[datetime | None]

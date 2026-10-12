@@ -2,10 +2,10 @@
 
 Two representations of the same contract live here on purpose:
 
-* ``CHUNK_REVIEW_SCHEMA`` — the JSON Schema sent to the provider's structured-output
+* ``CHUNK_REVIEW_SCHEMA``, the JSON Schema sent to the provider's structured-output
   feature. It is constrained decoding, so the model *cannot* emit a different shape.
   It deliberately avoids keywords structured outputs don't support (minLength, minimum…).
-* ``ChunkReview`` / ``Finding`` — Pydantic models that re-validate whatever comes back.
+* ``ChunkReview`` / ``Finding``, Pydantic models that re-validate whatever comes back.
   Constrained decoding removes malformed JSON, but not truncated output, refusals,
   providers without schema enforcement, or values that are well-typed yet wrong
   (a line number that isn't in the diff). Defence in depth, not redundancy.

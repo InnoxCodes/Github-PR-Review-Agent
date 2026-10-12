@@ -7,7 +7,7 @@ from app.services.container import Services
 
 
 async def start_review(session: AsyncSession, services: Services, ref: PRRef) -> tuple[Review, bool]:
-    """Create and launch a review — or return the one already running for this PR, so a
+    """Create and launch a review, or return the one already running for this PR, so a
     double-click or a webhook redelivery never pays for the same review twice."""
     running = await session.scalar(
         select(Review)

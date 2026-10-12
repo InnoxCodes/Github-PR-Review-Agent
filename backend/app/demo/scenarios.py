@@ -1,7 +1,7 @@
 """Hand-written sample pull requests for exploring the dashboard without an LLM API key.
 
 Every repository, author and pull request here is fictional (owner ``reviewmind-demo``), and
-every finding was written by hand to match the code it points at — none of it is model output.
+every finding was written by hand to match the code it points at, none of it is model output.
 Sample reviews are stored with ``is_sample = true`` and labelled as such in the UI.
 """
 
@@ -808,7 +808,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="critical",
                         category="security",
                         title="SQL query built from request input",
-                        comment="`body.charge_id` is interpolated straight into the SQL string, so a crafted id such as `x' OR '1'='1` changes the query. The UPDATE below already uses `$1` placeholders — this lookup should too.",
+                        comment="`body.charge_id` is interpolated straight into the SQL string, so a crafted id such as `x' OR '1'='1` changes the query. The UPDATE below already uses `$1` placeholders, this lookup should too.",
                         suggested_fix='        "SELECT id, merchant_id, amount, refunded FROM charges WHERE id = $1", body.charge_id',
                         status="accepted",
                     ),
@@ -845,7 +845,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="missing-test",
                         title="No tests for a money-moving endpoint",
-                        comment="This adds an endpoint with several failure paths — unknown charge, over-refund, cross-merchant access — but no test file changes. Cover at least the over-refund guard and the ownership check.",
+                        comment="This adds an endpoint with several failure paths, unknown charge, over-refund, cross-merchant access, but no test file changes. Cover at least the over-refund guard and the ownership check.",
                         confidence="medium",
                         status="accepted",
                     ),
@@ -966,7 +966,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="critical",
                         category="bug",
                         title="Effect re-runs on every render and stacks intervals",
-                        comment="The effect has no dependency array, so it runs after every render — and every `setPoints` causes a render. Each run starts another 5-second interval that is never cleared, so polling multiplies until the tab stalls.",
+                        comment="The effect has no dependency array, so it runs after every render, and every `setPoints` causes a render. Each run starts another 5-second interval that is never cleared, so polling multiplies until the tab stalls.",
                         suggested_fix="  useEffect(() => {\n    const load = () => fetchRevenue(accountId, range).then(setPoints)\n    load()\n    const timer = setInterval(load, 5000)\n    return () => clearInterval(timer)\n  }, [accountId, range])",
                         status="accepted",
                     ),
@@ -985,7 +985,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="bug",
                         title="Bars become NaN for empty or all-zero data",
-                        comment="With no points `Math.max()` returns `-Infinity`, and with all-zero revenue it returns `0` — either way every bar's `y` and `height` are `NaN` and the chart renders nothing.",
+                        comment="With no points `Math.max()` returns `-Infinity`, and with all-zero revenue it returns `0`, either way every bar's `y` and `height` are `NaN` and the chart renders nothing.",
                         suggested_fix="  const max = Math.max(1, ...points.map((p) => p.amount))",
                         status="accepted",
                     ),
@@ -1012,7 +1012,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="bug",
                         title="HTTP errors are parsed as revenue data",
-                        comment="`fetch` doesn't reject on 4xx/5xx, so an error body is parsed and `data.points` is `undefined` — which reaches `points.map` in the chart and throws. Check `response.ok` first.",
+                        comment="`fetch` doesn't reject on 4xx/5xx, so an error body is parsed and `data.points` is `undefined`, which reaches `points.map` in the chart and throws. Check `response.ok` first.",
                         suggested_fix="  if (!response.ok) throw new Error(`Revenue request failed: ${response.status}`)\n  const data = (await response.json()) as { points: RevenuePoint[] }",
                         status="accepted",
                     ),
@@ -1127,7 +1127,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="performance",
                         title="Blocking sleep inside an async worker",
-                        comment="`time.sleep` blocks the event loop, so while one endpoint backs off — up to 64 seconds on the last attempt — every other delivery on this worker stalls too. Use `await asyncio.sleep(...)`.",
+                        comment="`time.sleep` blocks the event loop, so while one endpoint backs off, up to 64 seconds on the last attempt, every other delivery on this worker stalls too. Use `await asyncio.sleep(...)`.",
                         suggested_fix="            await asyncio.sleep(2**attempt)",
                         status="accepted",
                     ),
@@ -1137,7 +1137,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="bug",
                         title="Network errors abort the retry loop",
-                        comment="`client.post` raises `httpx.TransportError` on timeouts and refused connections — exactly the failures retries exist for — and nothing catches it, so the first timeout ends delivery.",
+                        comment="`client.post` raises `httpx.TransportError` on timeouts and refused connections, exactly the failures retries exist for, and nothing catches it, so the first timeout ends delivery.",
                         suggested_fix="            try:\n                response = await client.post(endpoint.url, content=body, headers=headers)\n            except httpx.TransportError:\n                response = None\n            if response is not None and response.status_code < 300:",
                         status="accepted",
                     ),
@@ -1244,14 +1244,14 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="critical",
                         category="security",
                         title="Unauthenticated endpoint can flush the whole cache",
-                        comment="`/admin/flush` has no authentication and accepts any method, so anyone who can reach the service can wipe the cache with a single GET — an easy way to stampede the origin. Wrap it in the admin auth middleware and require POST.",
+                        comment="`/admin/flush` has no authentication and accepts any method, so anyone who can reach the service can wipe the cache with a single GET, an easy way to stampede the origin. Wrap it in the admin auth middleware and require POST.",
                     ),
                     SampleFinding(
                         anchor="HitRate:   float64(stats.Hits)",
                         severity="warning",
                         category="bug",
                         title="Hit rate is NaN before the first request",
-                        comment="With no hits or misses the division is `0/0`, which is `NaN` — and `encoding/json` refuses to encode NaN, so the endpoint returns an empty 200 until traffic arrives.",
+                        comment="With no hits or misses the division is `0/0`, which is `NaN`, and `encoding/json` refuses to encode NaN, so the endpoint returns an empty 200 until traffic arrives.",
                     ),
                     SampleFinding(
                         anchor="json.NewEncoder(w).Encode(statsResponse{",
@@ -1340,7 +1340,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="critical",
                         category="bug",
                         title="Index out of range for keys past the last hash",
-                        comment="`sort.Search` returns `len(r.hashes)` when a key hashes above every point on the ring, and indexing with it panics. A ring wraps around — those keys belong to the first point.",
+                        comment="`sort.Search` returns `len(r.hashes)` when a key hashes above every point on the ring, and indexing with it panics. A ring wraps around, those keys belong to the first point.",
                         suggested_fix=tabs("    return r.owners[r.hashes[idx%len(r.hashes)]]"),
                     ),
                     SampleFinding(
@@ -1364,7 +1364,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="missing-test",
                         title="No tests for distribution or wrap-around",
-                        comment="The ring's two core properties — keys spread evenly, and keys above the highest hash wrap to the first node — aren't tested. The wrap-around case would have caught the panic above.",
+                        comment="The ring's two core properties, keys spread evenly, and keys above the highest hash wrap to the first node, aren't tested. The wrap-around case would have caught the panic above.",
                     ),
                 ),
             ),
@@ -1391,7 +1391,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="warning",
                         category="performance",
                         title="Fetches the exchange rate once per amount",
-                        comment="`convert_many` calls `get_rate` — a new HTTP client and request — for every amount, so a 1,000-line payout makes 1,000 identical rate requests. Fetch the rate once and convert in memory.",
+                        comment="`convert_many` calls `get_rate`, a new HTTP client and request, for every amount, so a 1,000-line payout makes 1,000 identical rate requests. Fetch the rate once and convert in memory.",
                         suggested_fix='    if base == quote:\n        return amounts\n    rate = await get_rate(base, quote)\n    return [(amount * rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) for amount in amounts]',
                     ),
                     SampleFinding(
@@ -1429,7 +1429,7 @@ SAMPLE_REVIEWS: tuple[SampleReview, ...] = (
                         severity="critical",
                         category="bug",
                         title="`Decimal(float)` keeps binary float error",
-                        comment="If `payout.amount` is a float, `Decimal(payout.amount)` preserves its binary representation — `Decimal(0.1)` is `0.1000000000000000055511151231257827…` — and the error can survive rounding. Build it from a string.",
+                        comment="If `payout.amount` is a float, `Decimal(payout.amount)` preserves its binary representation, `Decimal(0.1)` is `0.1000000000000000055511151231257827…`, and the error can survive rounding. Build it from a string.",
                         suggested_fix="    amount = await convert(Decimal(str(payout.amount)), payout.currency, payout.destination.currency)",
                         confidence="medium",
                     ),

@@ -69,7 +69,7 @@ export function HealthGauge({ score, size = 140, compact = false, className }: H
             style={{ fontSize: compact ? size * 0.32 : size * 0.27 }}
           >
             {score === null ? (
-              <span className="text-fg-subtle">—</span>
+              <span className="text-fg-subtle">-</span>
             ) : (
               <AnimatedNumber value={value} format={(v) => String(Math.round(v))} />
             )}

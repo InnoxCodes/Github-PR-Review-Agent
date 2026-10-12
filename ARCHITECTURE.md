@@ -1,6 +1,6 @@
 # ReviewMind architecture
 
-One page on how a pull request URL becomes a streamed, line-anchored review — and why each piece is shaped the way it is.
+One page on how a pull request URL becomes a streamed, line-anchored review, and why each piece is shaped the way it is.
 
 ## The flow
 
@@ -57,7 +57,7 @@ and, per review, `review_events` (the stream log) and `llm_calls` (tokens, cost,
 
 **Server-Sent Events, not WebSockets.** Updates flow one way: server to browser. SSE is plain HTTP (works through proxies, needs no upgrade handshake), and `EventSource` reconnects on its own and resends `Last-Event-ID`. Triage actions are ordinary `PATCH` requests, so nothing needs a bidirectional socket.
 
-**The event log is written before it's published.** Each step changes rows and appends a `review_events` row in one transaction, commits, then publishes to in-memory subscribers. A client connecting late — or reconnecting — replays from the table, then switches to the live queue (it subscribes *before* reading the log, so nothing falls in between). The same log powers "Replay stream" on finished reviews.
+**The event log is written before it's published.** Each step changes rows and appends a `review_events` row in one transaction, commits, then publishes to in-memory subscribers. A client connecting late, or reconnecting, replays from the table, then switches to the live queue (it subscribes *before* reading the log, so nothing falls in between). The same log powers "Replay stream" on finished reviews.
 
 **SQLite with WAL.** Zero setup for a local tool, and WAL lets the dashboard read while a review writes. Counters that concurrent file workers update (`files_done`, token totals) are incremented in SQL, never read-modified-written. Moving to Postgres is a `DATABASE_URL` change plus migrations.
 
@@ -77,7 +77,7 @@ and, per review, `review_events` (the stream log) and `llm_calls` (tokens, cost,
 | GitHub rate limit | Typed error including reset time and a hint to add a token. |
 | LLM 429 / 5xx / timeout | Retried by the SDK with backoff; if still failing, that file is marked failed and the review continues. |
 | Malformed or truncated model output | Retried with the validation error as a correction turn (up to 3 attempts); visible as `file.retry` events. |
-| Invalid API key or unknown model | Whole review aborts — every file would fail identically. |
+| Invalid API key or unknown model | Whole review aborts, every file would fail identically. |
 | Every file fails | Review is marked failed, not "completed with score 100". |
 | API restarts mid-review | Review marked failed on startup: "Interrupted: the API restarted…". |
 | Browser disconnects | `EventSource` reconnects with `Last-Event-ID` and receives only what it missed. |

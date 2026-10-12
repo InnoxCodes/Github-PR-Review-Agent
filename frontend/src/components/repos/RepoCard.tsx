@@ -54,7 +54,7 @@ export function RepoCard({ repo, onRemove }: { repo: Repository; onRemove: () =>
         <dl className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-line bg-sunken p-3">
           <div>
             <dt className="text-xs text-fg-muted">Avg health</dt>
-            <dd className="mt-1 text-lg font-semibold text-fg">{repo.average_health_score ?? '—'}</dd>
+            <dd className="mt-1 text-lg font-semibold text-fg">{repo.average_health_score ?? '-'}</dd>
             {gradeMeta && GradeIcon && (
               <dd className={cn('mt-0.5 inline-flex items-center gap-1 text-xs font-medium', gradeMeta.text)}>
                 <GradeIcon className="size-3" aria-hidden /> {gradeMeta.label}

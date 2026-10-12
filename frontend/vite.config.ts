@@ -10,7 +10,7 @@ export default defineConfig({
   },
   build: {
     // The only chunks above the default limit are shiki grammars (C++, Emacs Lisp, WASM…),
-    // each lazy-loaded on first use of that language — never part of the initial bundle.
+    // each lazy-loaded on first use of that language, never part of the initial bundle.
     chunkSizeWarningLimit: 900,
   },
   server: {

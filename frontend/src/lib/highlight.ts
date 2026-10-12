@@ -69,7 +69,7 @@ export async function tokenizeLines(code: string, language: string): Promise<Tok
 
 /**
  * Highlight a hunk with real grammar context. Old and new sides are tokenized as two
- * contiguous excerpts (context+deleted, context+added), then mapped back line by line —
+ * contiguous excerpts (context+deleted, context+added), then mapped back line by line -
  * so a multi-line string or comment that spans a change still colours correctly.
  */
 export async function tokenizeHunks(hunks: Hunk[], language: string): Promise<Token[][][]> {

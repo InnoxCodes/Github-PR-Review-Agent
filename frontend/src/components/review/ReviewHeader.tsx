@@ -49,7 +49,7 @@ export function ReviewHeader({ review, onReplay }: { review: ReviewDetail; onRep
               </Badge>
             )}
             {review.is_sample && (
-              <Tooltip content="Hand-written sample data — not model output">
+              <Tooltip content="Hand-written sample data, not model output">
                 <Badge tone="outline" tabIndex={0}>
                   Sample
                 </Badge>
@@ -140,7 +140,7 @@ export function ReviewHeader({ review, onReplay }: { review: ReviewDetail; onRep
       <dl className="relative grid grid-cols-2 gap-px border-t border-line bg-line sm:grid-cols-3 xl:grid-cols-6">
         <Stat label="Open findings" icon={<TriangleAlert />} value={`${review.open_issues} of ${review.issues_total}`} />
         <Stat label="Files reviewed" icon={<FileCode2 />} value={`${reviewedFiles} of ${review.files.length}`} />
-        <Stat label="Model" icon={<Cpu />} value={review.model ?? '—'} mono />
+        <Stat label="Model" icon={<Cpu />} value={review.model ?? '-'} mono />
         <Stat label="Review time" icon={<Clock />} value={formatDuration(review.duration_ms)} />
         <Stat
           label="Tokens"

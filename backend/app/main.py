@@ -27,10 +27,10 @@ to the dashboard as they're produced.
 
 **Typical flow**
 
-1. `POST /api/reviews` with a PR URL — returns the review id immediately.
-2. `GET /api/reviews/{id}/stream` — Server-Sent Events while the review runs.
-3. `GET /api/reviews/{id}` — files, diffs, findings, health score and cost.
-4. `PATCH /api/reviews/{id}/issues/{issue_id}` — accept, dismiss or flag findings.
+1. `POST /api/reviews` with a PR URL, returns the review id immediately.
+2. `GET /api/reviews/{id}/stream`, Server-Sent Events while the review runs.
+3. `GET /api/reviews/{id}`, files, diffs, findings, health score and cost.
+4. `PATCH /api/reviews/{id}/issues/{issue_id}`, accept, dismiss or flag findings.
 """
 
 TAGS = [

@@ -12,7 +12,7 @@ class ModelPrice:
     cache_read_multiplier: float = 0.10
 
 
-# USD per million tokens — Anthropic first-party API list prices (cached 2026-06-24).
+# USD per million tokens, Anthropic first-party API list prices (cached 2026-06-24).
 # Other vendors' prices change often and aren't hardcoded: set LLM_PRICE_INPUT_PER_MTOK /
 # LLM_PRICE_OUTPUT_PER_MTOK to track them, otherwise cost is reported as unknown.
 ANTHROPIC_PRICES: dict[str, ModelPrice] = {

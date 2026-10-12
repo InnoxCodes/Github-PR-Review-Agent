@@ -81,7 +81,7 @@ class AnthropicProvider:
         except anthropic.APIConnectionError as exc:
             raise LLMUnavailableError("Could not reach the Anthropic API (connection error or timeout).") from exc
 
-        # A refusal is an HTTP 200 whose content is empty or partial — never read it as a review.
+        # A refusal is an HTTP 200 whose content is empty or partial, never read it as a review.
         if message.stop_reason == "refusal":
             details = getattr(message, "stop_details", None)
             category = getattr(details, "category", None)

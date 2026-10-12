@@ -6,7 +6,7 @@ export const gentleSpring: Transition = { type: 'spring', stiffness: 240, dampin
 export const easeOut: Transition = { duration: 0.32, ease: [0.22, 1, 0.36, 1] }
 export const exitFast: Transition = { duration: 0.18, ease: [0.4, 0, 1, 1] }
 
-// 45ms between items: inside the 30–50ms stagger band — reads as a wave, not a wait.
+// 45ms between items: inside the 30–50ms stagger band, reads as a wave, not a wait.
 export const STAGGER = 0.045
 
 export const listContainer: Variants = {

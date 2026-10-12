@@ -24,7 +24,7 @@ export function StatTile({ label, value, format, icon: Icon, hint }: StatTilePro
           </span>
         </div>
         <p className="mt-3 text-[30px] font-semibold leading-none tracking-tight text-fg">
-          {value === null ? <span className="text-fg-subtle">—</span> : <AnimatedNumber value={value} format={format} />}
+          {value === null ? <span className="text-fg-subtle">-</span> : <AnimatedNumber value={value} format={format} />}
         </p>
         {hint && <p className="mt-2 text-xs leading-relaxed text-fg-muted">{hint}</p>}
       </Card>

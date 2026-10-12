@@ -110,7 +110,7 @@ export function TrackRepoDialog({ open, onClose }: { open: boolean; onClose: () 
           </div>
           <p id="repo-token-help" className="mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-fg-muted">
             <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-            Only needed for private repositories — a fine-grained token with read-only Pull requests and Contents access is enough.
+            Only needed for private repositories, a fine-grained token with read-only Pull requests and Contents access is enough.
             It's encrypted before it reaches the database and never sent back to the browser.
           </p>
         </div>

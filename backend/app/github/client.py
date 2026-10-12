@@ -121,7 +121,7 @@ class GitHubClient:
 
         if status == 404:
             return GitHubNotFoundError(
-                "Not found on GitHub. Check the URL — if the repository is private, "
+                "Not found on GitHub. Check the URL, if the repository is private, "
                 "the token needs read access to it.",
                 status,
             )
